@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="myForm">
+  <form [formGroup]="myForm" *ngIf="!update">
     <div class="card">
       <div class="card-header">
         <h2>Laptop Store App</h2>
@@ -166,4 +166,102 @@
       </div>
     </div>
   </form>
+
+  <form [formGroup]="updateForm" *ngIf="update">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h3>Update Laptop</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="uname" class="form-label">Name:</label>
+            <input type="text" class="form-control" id="uname" formControlName="uname">
+            
+            <div *ngIf="uname.errors?.['required'] && (uname.touched)">
+              <p style="color: red;">Name is required</p>
+            </div>
+
+            <div *ngIf="uname.errors?.['minlength']">
+                <p style="color: red;">Name should be of minimum 3 letters</p>
+            </div>
+
+            <div *ngIf="uname.errors?.['maxlength']">
+              <p style="color: red;">Name should be of maximum 20 letters</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="uprice" class="form-label">Price:</label>
+            <input type="text" class="form-control" id="uprice" formControlName="uprice">
+            <div *ngIf="uprice.errors?.['required'] && (uprice.touched)">
+              <p style="color: red;">Price is required</p>
+            </div>
+
+            <div *ngIf="uprice.errors?.['max']">
+              <p style="color: red">Price should not exceed 9999</p>
+            </div>
+
+            <div *ngIf="uprice.errors?.['min']">
+              <p style="color: red;">Price should be greater than 0</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="brand" class="form-label">Brand:</label>
+            <input type="text" class="form-control" id="brand" formControlName="ubrand">
+
+            <div *ngIf="ubrand.errors?.['required'] && (ubrand.touched)">
+              <p style="color: red;">Brand is required</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="ram" class="form-label">RAM:</label>
+            <input type="text" class="form-control" id="ram" formControlName="uram">
+
+            <div *ngIf="uram.errors?.['required'] && (uram.touched)">
+              <p style="color: red;">RAM is required</p>
+          </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="processor" class="form-label">Processor:</label>
+            <input type="text" class="form-control" id="processor" formControlName = "uprocessor">
+
+            <div *ngIf="uprocessor.errors?.['required'] && (uprocessor.touched)">
+              <p style="color: red;">Processor is required</p>
+          </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="storage" class="form-label">Storage:</label>
+            <input type="text" class="form-control" id="storage" formControlName="ustorage">
+
+            <div *ngIf="ustorage.errors?.['required'] && (ustorage.touched)">
+              <p style="color: red;">Storage is required</p>
+          </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="d-grid">
+              <button [disabled]="updateForm.get('uname')?.invalid || updateForm.get('uram')?.invalid || updateForm.get('ubrand')?.invalid || updateForm.get('ustorage')?.invalid || updateForm.get('uprocessor')?.invalid || updateForm.get('uprice')?.invalid" type="submit" class="btn btn-primary" (click)="onSubmitUpdate()">Update Laptop</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
 </div>
