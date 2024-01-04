@@ -103,4 +103,24 @@ public class LaptopServiceImpl implements LaptopService{
 		Laptop savedLaptop = laptopRepository.save(existingLaptop);
 		return ResponseEntity.ok(extractedLaptopDTO(existingLaptop));
 	}
+
+	@Override
+	public List<LaptopDTO> findAllByPriceNameBrand(String name, Double price, String brand) {
+		return laptopRepository.findAllByPriceNameBrand(name, price, brand).stream().map(laptop -> extractedLaptopDTO(laptop)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<LaptopDTO> findAllByPriceName(String name, Double price) {
+		return laptopRepository.findAllByPriceName(name, price).stream().map(laptop -> extractedLaptopDTO(laptop)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<LaptopDTO> findAllByNameBrand(String name, String brand) {
+		return laptopRepository.findAllByNameBrand(name, brand).stream().map(laptop -> extractedLaptopDTO(laptop)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<LaptopDTO> findAllByPriceBrand(Double price, String brand) {
+		return laptopRepository.findAllByPriceBrand(price, brand).stream().map(laptop -> extractedLaptopDTO(laptop)).collect(Collectors.toList());
+	}
 }

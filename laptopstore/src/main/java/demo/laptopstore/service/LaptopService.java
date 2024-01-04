@@ -2,6 +2,8 @@ package demo.laptopstore.service;
 
 import java.util.List;
 
+import demo.laptopstore.entity.Laptop;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,4 +27,12 @@ public interface LaptopService {
 	ResponseEntity<String> deleteLaptopById(Long id) throws ResourceNotFoundException;
 
 	ResponseEntity<LaptopDTO> updateLaptopById(Long id, LaptopDTO laptopDTO) throws ResourceNotFoundException;
+
+	public List<LaptopDTO> findAllByPriceNameBrand(String name, Double price, String brand) ;
+
+	public List<LaptopDTO> findAllByPriceName(String name, Double price) ;
+
+	public List<LaptopDTO> findAllByNameBrand(String name, String brand) ;
+
+	public List<LaptopDTO> findAllByPriceBrand(Double price, String brand) ;
 }

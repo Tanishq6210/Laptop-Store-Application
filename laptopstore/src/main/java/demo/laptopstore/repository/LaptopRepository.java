@@ -10,6 +10,18 @@ import demo.laptopstore.entity.Laptop;
 
 public interface LaptopRepository extends JpaRepository<Laptop, Long> {
 
+	@Query("SELECT l FROM Laptop l WHERE l.name = :name AND l.price = :price AND l.brand = :brand")
+	public List<Laptop> findAllByPriceNameBrand(String name, Double price, String brand) ;
+
+	@Query("SELECT l FROM Laptop l WHERE l.name = :name AND l.price = :price")
+	public List<Laptop> findAllByPriceName(String name, Double price) ;
+
+	@Query("SELECT l FROM Laptop l WHERE l.name = :name AND l.brand = :brand")
+	public List<Laptop> findAllByNameBrand(String name, String brand) ;
+
+	@Query("SELECT l FROM Laptop l WHERE l.price = :price AND l.brand = :brand")
+	public List<Laptop> findAllByPriceBrand(Double price, String brand) ;
+
 	public List<Laptop> findAllByPrice(Double price);
 
 	public List<Laptop> findAllByName(String name);

@@ -1,5 +1,6 @@
 package demo.laptopstore.controller;
 
+import java.lang.annotation.Repeatable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,21 +74,29 @@ public class LaptopController {
 	}
 
 	@GetMapping("search")
-	public List<LaptopDTO> findByParameter(@RequestParam(required = false) String name,
+	public ResponseEntity<List<LaptopDTO>> findByParameter(@RequestParam(required = false) String name,
 			@RequestParam(required = false) Double price, @RequestParam(required = false) String brand) {
 
-		if (name != null) {
+		if(name != null && price != null && brand != null) {
+			return ResponseEntity.ok(laptopService.findAllByPriceNameBrand(name, price, brand));
+		} else if(name != null && price != null) {
+			return ResponseEntity.ok(laptopService.findAllByPriceName(name, price));
+		} else if(name != null && brand != null) {
+			return ResponseEntity.ok(laptopService.findAllByNameBrand(name, brand));
+		} else if(price != null && brand != null) {
+			return ResponseEntity.ok(laptopService.findAllByPriceBrand(price, brand));
+		} else if (name != null) {
 			// If only name is provided
-			return laptopService.findAllByName(name);
+			return ResponseEntity.ok(laptopService.findAllByName(name));
 		} else if (price != null) {
 			// If only price is provided
-			return laptopService.findAllByPrice(price);
+			return ResponseEntity.ok(laptopService.findAllByPrice(price));
 		} else if (brand != null) {
 			// If only brand is provided
-			return laptopService.findAllByBrand(brand);
+			return ResponseEntity.ok(laptopService.findAllByBrand(brand));
 		} else {
 			// If no parameters are provided
-			return laptopService.findAll();
+			return ResponseEntity.ok(laptopService.findAll());
 		}
 	}
 
